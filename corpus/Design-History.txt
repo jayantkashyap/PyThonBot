@@ -1,0 +1,127 @@
+can't Python use indentation for grouping of statements. Guido van Rossum believes that using indentation for grouping is extremely elegant and contributes a lot to the clarity of the average Python program. Most people learn to love this feature after a while. Since there are no begin/end brackets there cannot be a disagreement between grouping perceived by the parser and the human reader. Many coding styles place begin/end brackets on a line by themselves. This makes programs considerably longer and wastes valuable screen space, making it harder to get a good overview of a program.
+@
+Floating-point calculations so inaccurate. It's not. This has little to do with Python, and much more to do with how the underlying platform handles floating-point numbers.
+@
+Float operations as in C. The float type in CPython uses a C double for storage. A float object's value is stored in binary floating-point with a fixed precision (typically 53 bits) and Python uses C operations, which in turn rely on the hardware implementation in the processor, to perform floating-point operations. This means that as far as floating-point operations are concerned, Python behaves like many popular languages including C and Java.
+@
+Float precision. The typical precision of 53-bits provides Python floats with '15-16-decimal-digits' of accuracy.
+@
+Python strings immutable. Knowing that a string is immutable means we can allocate space for it at creation time, and the storage requirements are fixed and unchanging. This is also one of the reasons for the distinction between tuples and lists. The strings in Python are considered as elemental as numbers. No amount of activity will change the value 8 to anything else, and in Python, no amount of activity will change the string eight to anything else.
+@
+'self' be used explicitly in method definitions and calls. The idea was borrowed from Modula-3. It turns out to be very useful, for a variety of reasons.
+@
+methods for some functionality. The major reason is history. Functions were used for those operations that were generic for a group of types and which were intended to work even for objects that didn't have methods at all (e.g. tuples). It is also convenient to have a function that can readily be applied to an amorphous collection of objects.
+@
+'join()' or 'join' is a string method because in using it you are telling the separator string to iterate over a sequence of strings and insert itself between adjacent elements. This method can be used with any argument which obeys the rules for sequence objects.
+@
+try catch exceptions fast. A 'try/except' block is extremely efficient if no exceptions are raised. Actually catching an exception is expensive.
+@
+no switch statement. You can do this easily enough with a sequence of 'if...elif...else'.
+@
+lamda expressions contains not statements. Python lambda expressions cannot contain statements because Python's syntactic framework can't handle statements nested inside expressions.
+@
+python be compiled to machine code. Cython compiles a modified version of Python with optional annotations into C extensions. 
+@
+memory management python or manage memory.The details of Python memory management depend on the implementation. The standard implementation of Python, CPython, uses reference counting to detect inaccessible objects, and another mechanism to collect reference cycles, periodically executing a cycle detection algorithm which looks for inaccessible cycles and deletes the objects involved. The gc module provides functions to perform a garbage collection, obtain debugging statistics, and tune the collector�s parameters.
+@
+'with' statement. If you want to write code that will work with any Python implementation, you should explicitly close the file or use the 'with' statement; this will work regardless of memory management
+@
+Objects referenced from the global namespaces of Python modules are not always de-allocated when Python exits. This may happen if there are circular references. There are also certain bits of memory that are allocated by the C library that are impossible to free (e.g. a tool like Purify will complain about these). Python is, however, aggressive about cleaning up memory on exit and does try to destroy every single object.
+@
+different tuples and lists. Lists and tuples, while similar in many respects, are generally used in fundamentally different ways. Tuples can be thought of as being similar to Pascal records or C structs; they're small collections of related data which may be of different types which are operated on as a group. For example, a Cartesian coordinate is appropriately represented as a tuple of two or three numbers.
+@
+lists are implemented. Python's lists are really variable-length arrays, not Lisp-style linked lists. The implementation uses a contiguous array of references to other objects, and keeps a pointer to this array and the array's length in a list head structure.
+@
+lists are indexed or list index. This makes indexing a list a[i] an operation whose cost is independent of the size of the list or the value of the index. When items are appended or inserted, the array of references is resized.
+@
+list methods. use 'dir' function to list 'list' methods
+@
+Python's dictionaries are implemented as resizable hash tables. Compared to B-trees, this gives better performance for lookup (the most common operation by far) under most circumstances, and the implementation is simpler. Dictionaries work by computing a hash code for each key stored in the dictionary using the hash() built-in function.
+@
+Ditionary keys are immutable. The hash table implementation of dictionaries uses a hash value calculated from the key value to find the key. If the key were a mutable object, its value could change, and thus its hash could also change. 
+@
+You can use exceptions to provide a 'structured goto' for 'goto' that even works across function calls.
+@
+Python has a 'with' statement that wraps the execution of a block, calling code on the entrance and exit from the block. Python uses dynamic types. It is impossible to know in advance which attribute will be referenced at runtime.
+@
+colons required in 'if', 'while', 'for', 'def', 'class'. The colon is required primarily to enhance readability (one of the results of the experimental ABC language). 
+@
+comma at the end of list or tuples. When you have a literal value for a list, tuple, or dictionary spread across multiple lines, it's easier to add more elements because you don't have to remember to add a comma to the previous line. The lines can also be reordered without creating a syntax error.
+@
+Python is an interpreted, interactive, object-oriented programming language. It incorporates modules, exceptions, dynamic typing, very high level dynamic data types, and classes. Python combines remarkable power with very clear syntax. Python is portable: it runs on many Unix variants, on the Mac, and on Windows 2000 and later. The Beginner's Guide to Python links to other introductory tutorials and resources for learning Python.
+@
+The Python Software Foundation is an independent non-profit organization that holds the copyright on Python versions 2.1 and newer. The PSF's mission is to advance open source technology related to the Python programming language and to publicize the use of Python.
+@
+You can do anything you want with the source, as long as you leave the copyrights in and display those copyrights in any documentation about Python that you produce. If you honor the copyright rules, it's OK to use Python for commercial use, to sell copies of Python in source or binary form (modified or unmodified), or to sell products that incorporate Python in some form. We would still like to know about all commercial use of Python, of course.
+@
+Here's a very brief summary of what started it all, written by Guido van Rossum:
+I had extensive experience with implementing an interpreted language in the ABC group at CWI, and from working with this group I had learned a lot about language design. This is the origin of many Python features, including the use of indentation for statement grouping and the inclusion of very-high-level data types (although the details are all different in Python).
+I had a number of gripes about the ABC language, but also liked many of its features. It was impossible to extend the ABC language (or its implementation) to remedy my complaints ? in fact its lack of extensibility was one of its biggest problems. I had some experience with using Modula-2+ and talked with the designers of Modula-3 and read the Modula-3 report. Modula-3 is the origin of the syntax and semantics used for exceptions, and some other Python features.
+I was working in the Amoeba distributed operating system group at CWI. We needed a better way to do system administration than by writing either C programs or Bourne shell scripts, since Amoeba had its own system call interface which wasn't easily accessible from the Bourne shell. My experience with error handling in Amoeba made me acutely aware of the importance of exceptions as a programming language feature.
+It occurred to me that a scripting language with a syntax like ABC but with access to the Amoeba system calls would fill the need. I realized that it would be foolish to write an Amoeba-specific language, so I decided that I needed a language that was generally extensible.
+During the 1989 Christmas holidays, I had a lot of time on my hand, so I decided to give it a try. During the next year, while still mostly working on it in my own time, Python was used in the Amoeba project with increasing success, and the feedback from colleagues made me add many early improvements.
+In February 1991, after just over a year of development, I decided to post to USENET. The rest is in the Misc/HISTORY file.
+@
+The language comes with a large standard library that covers areas such as string processing (regular expressions, Unicode, calculating differences between files), Internet protocols (HTTP, FTP, SMTP, XML-RPC, POP, IMAP, CGI programming), software engineering (unit testing, logging, profiling, parsing Python code), and operating system interfaces (system calls, filesystems, TCP/IP sockets). Look at the table of contents for The Python Standard Library to get an idea of what's available.
+@
+A wide variety of third-party extensions are also available. Consult the Python Package Index to find packages of interest to you.
+@
+Python versions are numbered A.B.C or A.B. A is the major version number ? it is only incremented for really major changes in the language. B is the minor version number, incremented for less earth-shattering changes. C is the micro-level ? it is incremented for each bugfix release.
+See also the documentation for sys.version, sys.hexversion, and sys.version_info.
+@
+The latest Python source distribution is always available from python.org, at 'https://www.python.org/downloads/'. The latest development sources can be obtained at 'https://github.com/python/cpython/'.
+The source distribution is a gzipped tar file containing the complete C source, Sphinx-formatted documentation, Python library modules, example programs, and several useful pieces of freely distributable software. The source will compile and run out of the box on most UNIX platforms.
+Consult the Getting Started section of the Python Developer's Guide for more information on getting the source code and compiling it.
+@
+The standard documentation for the current stable version of Python is available at 'https://docs.python.org/3/'. PDF, plain text, and downloadable HTML versions are also available at 'https://docs.python.org/3/download.html'.
+The documentation is written in reStructuredText and processed by the Sphinx documentation tool. The reStructuredText source for the documentation is part of the Python source distribution.
+@
+There are numerous tutorials and books available. The standard documentation includes The Python Tutorial.
+Consult the Beginner's Guide to find information for beginning Python programmers, including lists of tutorials.
+@
+There is a newsgroup, comp.lang.python, and a mailing list, python-list. The newsgroup and mailing list are gatewayed into each other ? if you can read news it's unnecessary to subscribe to the mailing list. comp.lang.python is high-traffic, receiving hundreds of postings every day, and Usenet readers are often more able to cope with this volume.
+Announcements of new software releases and events can be found in comp.lang.python.announce, a low-traffic moderated list that receives about five postings per day. It's available as the python-announce mailing list.
+More info about other mailing lists and newsgroups can be found at 'https://www.python.org/community/lists/'.
+@
+Alpha and beta releases are available from 'https://www.python.org/downloads/'. All releases are announced on the comp.lang.python and comp.lang.python.announce newsgroups and on the Python home page at https://www.python.org/; an RSS feed of news is available.
+You can also access the development version of Python through Git. See The Python Developer's Guide for details.
+@
+To report a bug or submit a patch, please use the Roundup installation at 'https://bugs.python.org/'.
+You must have a Roundup account to report bugs; this makes it possible for us to contact you if we have follow-up questions. It will also enable Roundup to send you updates as we act on your bug. If you had previously used SourceForge to report bugs to Python, you can obtain your Roundup password through Roundup's password reset procedure.
+For more information on how Python is developed, consult the Python Developer's Guide.
+@
+It's probably best to cite your favorite book about Python. The very first article about Python was written in 1991 and is now quite outdated.
+Guido van Rossum and Jelke de Boer, ?Interactively Testing Remote Servers Using the Python Programming Language, CWI Quarterly, Volume 4, Issue 4 (December 1991), Amsterdam, pp 283?303.
+@
+Yes, there are many, and more are being published. See the python.org wiki at 'https://wiki.python.org/moin/PythonBooks' for a list.
+You can also search online bookstores for Python and filter out the 'Monty Python references'; or perhaps search for Python and language.
+@
+The Python project's infrastructure is located all over the world. www.python.org is graciously hosted by Rackspace, with CDN caching provided by Fastly. Upfront Systems hosts bugs.python.org. Many other Python services like the Wiki are hosted by Oregon State University Open Source Lab.
+@
+When he began implementing Python, Guido van Rossum was also reading the published scripts from ?Monty Python's Flying Circus?, a BBC comedy series from the 1970s. Van Rossum thought he needed a name that was short, unique, and slightly mysterious, so he decided to call the language Python.
+@
+Very stable. New, stable releases have been coming out roughly every 6 to 18 months since 1991, and this seems likely to continue. Currently there are usually around 18 months between major releases.
+The developers issue bugfix releases of older versions, so the stability of existing releases gradually improves. Bugfix releases, indicated by a third component of the version number (e.g. 2.5.3, 2.6.2), are managed for stability; only fixes for known problems are included in a bugfix release, and it's guaranteed that interfaces will remain the same throughout a series of bugfix releases.
+The latest stable releases can always be found on the Python download page. There are two recommended production-ready versions at this point in time, because at the moment there are two branches of stable releases: 2.x and 3.x. Python 3.x may be less useful than 2.x, since currently there is more third party software available for Python 2 than for Python 3. Python 2 code will generally not run unchanged in Python 3.
+@
+There are probably tens of thousands of users, though it's difficult to obtain an exact count.
+Python is available for free download, so there are no sales figures, and it's available from many different sites and packaged with many Linux distributions, so download statistics don't tell the whole story either.
+The comp.lang.python newsgroup is very active, but not all Python users post to the group or even read it.
+@
+See 'https://www.python.org/about/success' for a list of projects that use Python. Consulting the proceedings for past Python conferences will reveal contributions from many different companies and organizations.
+High-profile Python projects include the Mailman mailing list manager and the Zope application server. Several Linux distributions, most notably Red Hat, have written part or all of their installer and system administration software in Python. Companies that use Python internally include Google, Yahoo, and Lucasfilm Ltd.
+@
+In general, no. There are already millions of lines of Python code around the world, so any change in the language that invalidates more than a very small fraction of existing programs has to be frowned upon. Even if you can provide a conversion program, there's still the problem of updating all documentation; many books have been written about Python, and we don't want to invalidate them all at a single stroke.
+Providing a gradual upgrade path is necessary if a feature has to be changed. PEP 5 describes the procedure followed for introducing backward-incompatible changes while minimizing disruption for users.
+@
+It is still common to start students with a procedural and statically typed language such as Pascal, C, or a subset of C++ or Java. Students may be better served by learning Python as their first language. Python has a very simple and consistent syntax and a large standard library and, most importantly, using Python in a beginning programming course lets students concentrate on important programming skills such as problem decomposition and data type design.
+@
+With Python, students can be quickly introduced to basic concepts such as loops and procedures. They can probably even work with user-defined objects in their very first course.
+For a student who has never programmed before, using a statically typed language seems unnatural. It presents additional complexity that the student must master and slows the pace of the course. The students are trying to learn to think like a computer, decompose problems, design consistent interfaces, and encapsulate data. While learning to use a statically typed language is important in the long term, it is not necessarily the best topic to address in the students' first programming course.
+Many other aspects of Python make it a good first language. Like Java, Python has a large standard library so that students can be assigned programming projects very early in the course that do something. Assignments aren't restricted to the standard four-function calculator and check balancing programs. By using the standard library, students can gain the satisfaction of working on realistic applications as they learn the fundamentals of programming. Using the standard library also teaches students about code reuse. Third-party modules such as PyGame are also helpful in extending the students' reach.
+Python's interactive interpreter enables students to test language features while they're programming.
+@
+With the interpreter, documentation is never far from the student as they are programming.
+@
+There are also good IDEs for Python. IDLE is a cross-platform IDE for Python that is written in Python using Tkinter. PythonWin is a Windows-specific IDE. Emacs users will be happy to know that there is a very good Python mode for Emacs. All of these programming environments provide syntax highlighting, auto-indenting, and access to the interactive interpreter while coding. Consult the Python wiki for a full list of Python editing environments.
+If you want to discuss Python's use in education, you may be interested in joining the edu-sig mailing list.
